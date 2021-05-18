@@ -1,13 +1,14 @@
 %h1 Check out our products!
+= select_tag :currency, options_for_select(Constants::Currency::PERMITTED, params[:currency]), data: { remote: true, method: 'get', url: exchange_price_products_path }
 
 .row.product-list
   - @products.each do |product|
-    %article.product
+    %div.product
       %h2= product.name
       %p= product.description
-      %strong
+      %strong.price{id: "product_#{product.id}"}
         = product.price
-        EUR
+        = "EUR"
 
       = link_to 'Show more', product
 
