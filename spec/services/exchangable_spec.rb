@@ -6,7 +6,7 @@ RSpec.describe Exchangeable do
   describe 'retrieve_exchange_rate' do
     subject(:exchangeable) { described_class.new(params).retrieve_exchange_rate }
 
-    context 'with and currency type' do
+    context 'with currency type USD' do
       let(:params) { { currency: 'USD' } }
 
       it 'returns the currency rate for USD' do
@@ -15,7 +15,7 @@ RSpec.describe Exchangeable do
       end
     end
 
-    context 'with and currency type' do
+    context 'with currency type GBP' do
       let(:params) { { currency: 'GBP' } }
 
       it 'returns the currency rate for GBP' do
@@ -24,7 +24,7 @@ RSpec.describe Exchangeable do
       end
     end
 
-    context 'with and currency type' do
+    context 'with currency type PHP' do
       let(:params) { { currency: 'PHP' } }
 
       it 'returns the currency rate for PHP' do
@@ -33,7 +33,7 @@ RSpec.describe Exchangeable do
       end
     end
 
-    context 'with and currency type' do
+    context 'with currency type EUR' do
       let(:params) { { currency: 'EUR' } }
 
       it 'returns the currency rate for EUR' do
