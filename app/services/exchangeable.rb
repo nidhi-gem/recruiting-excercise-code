@@ -1,16 +1,20 @@
 require 'open-uri'
 
-class Exchangeable
+class Exchangeable < StandardError
   def initialize(params)
     @params = params
   end
 
   def retrieve_exchange_rate
-    doc = Nokogiri::XML(URI.open(eurofxref_url)).remove_namespaces!
-    doc.xpath('//Cube/Cube').first.children.each do |cube|
-      currency = @params[:currency]
-      @values = currency_value(currency, cube)
-      break if @values.present?
+    begin
+      doc = Nokogiri::XML(URI.parse(Settings.eurofxref_url).open).remove_namespaces!
+      doc.xpath('//Cube/Cube').first.children.each do |cube|
+        currency = @params[:currency]
+        @values = currency_value(currency, cube)
+        break if @values.present?
+      end
+    rescue StandardError
+      @values = 'API Exchange rate is unavailable'
     end
     @values
   end
@@ -21,11 +25,5 @@ class Exchangeable
     elsif currency == cube.values.first
       cube.values
     end
-  end
-
-  private
-
-  def eurofxref_url
-    'http://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml'
   end
 end

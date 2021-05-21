@@ -11,11 +11,7 @@ class ProductsController < ApplicationController
 
   def exchange_price
     @values = Exchangeable.new(params).retrieve_exchange_rate
-    if @values.present?
-      session[:values] = @values
-    else
-      @values = 'API response is not available'
-    end
+    session[:values] = @values if @values.instance_of?(Array)
     respond_to do |format|
       format.js
       format.html { @values }
