@@ -1,0 +1,8 @@
+<% if @values.is_a?(Array) %>
+  <% @products.each do |product| %>
+    $(<%= "product_#{product.id}" %>).html("<%=j render partial: "products/product", locals: { product: product, rate: @values.last.to_f } %>");
+  <% end %>
+<% else %>
+  alert("Sorry API response is unavailable")
+<% end %>
+

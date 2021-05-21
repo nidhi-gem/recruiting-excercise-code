@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   root to: 'products#index'
-  resources :products
+  resources :products, only: [:index, :show] do
+    collection do
+      get "exchange_price"
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -3,9 +3,14 @@
 
   %p= @product.description
 
-  %strong
-    = @product.price
-    EUR
+  - if session[:values].present?
+    %strong
+      = @product.price * session[:values].last.to_f
+      = session[:values].first
+  - else
+    %strong
+      = @product.price
+      = "EUR"
 
   = link_to 'Shut up and take my money!', '#'
 

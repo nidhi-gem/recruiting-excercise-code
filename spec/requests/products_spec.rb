@@ -32,4 +32,11 @@ RSpec.describe "Products", type: :request do
       expect(price.text).to match(/34.56\sEUR/)
     end
   end
+
+  describe 'GET /products/exchange_price' do
+    it 'shows USD Exchange' do
+      get exchange_price_products_path(currency: 'USD'), xhr: true
+      expect(response).to have_http_status(200)
+    end
+  end
 end
